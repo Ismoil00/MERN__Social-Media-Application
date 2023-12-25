@@ -1,0 +1,21 @@
+# node modules or packages
+node_modules
+/node_modules
+.node_modules
+node_modules.
+node_modules/
+/node_modules/
+.node_modules.
+.node_modules/
+/node_modules.
+
+# environment
+env
+/env
+.env
+env.
+env/
+/env/
+.env.
+.env/
+/env.
