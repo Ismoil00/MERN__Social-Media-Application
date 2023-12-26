@@ -9,7 +9,11 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import { register } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postsRoutes from "./routes/posts.js";
+import { verifyToken } from "./middlewares/auth.js";
 
 /* CONFIGURATIONS */
 // Because we set type to "module", we have to define the below variables manually:
@@ -39,11 +43,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-/* ROUTES WITH FILES */
+/* ROUTES FOR HANDLING IMAGES UPLOAD */
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
 app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postsRoutes);
 
 /* MONGOOSE SETUP */
 // Connecting to MongoDB then running the server:
