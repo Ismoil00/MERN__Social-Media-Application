@@ -2,7 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
+import "dotenv/config";
 import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -14,12 +15,17 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postsRoutes from "./routes/posts.js";
 import { verifyToken } from "./middlewares/auth.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
+const mongodb_url =
+  "mongodb+srv://ismoil:ismoil@myfirstcluster.11mqx2p.mongodb.net/?retryWrites=true&w=majority";
 
 /* CONFIGURATIONS */
 // Because we set type to "module", we have to define the below variables manually:
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config();
+// dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet()); // Instructing Express.js to use the default Helmet middleware, which adds various HTTP headers to enhance security as preventing certain types of attacks like XSS (Cross-Site Scripting) and clickjacking.
@@ -53,11 +59,14 @@ app.use("/users", userRoutes);
 app.use("/posts", postsRoutes);
 
 /* MONGOOSE SETUP */
-// Connecting to MongoDB then running the server:
 const PORT = process.env.PORT || 5001;
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(mongodb_url)
   .then(() => {
     app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+
+    /* ADDING DATA TO DATABASE ONCE */
+    // User.insertMany(users)
+    // Post.insertMany(posts)
   })
   .catch((err) => console.log(`ERROR while connecting to Database: ${err}`));
