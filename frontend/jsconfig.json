@@ -1,7 +1,6 @@
-// JavaScript Configuration for importing/exporting files within the project:
 {
-    "compilerOptions": {
-        "baseUrl": "src"
-    },
-    "include": ["src"]
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
 }
