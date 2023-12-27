@@ -18,8 +18,6 @@ import { verifyToken } from "./middlewares/auth.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
-const mongodb_url =
-  "mongodb+srv://ismoil:ismoil@myfirstcluster.11mqx2p.mongodb.net/?retryWrites=true&w=majority";
 
 /* CONFIGURATIONS */
 // Because we set type to "module", we have to define the below variables manually:
@@ -61,7 +59,7 @@ app.use("/posts", postsRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
 mongoose
-  .connect(mongodb_url)
+  .connect(process.env.MONGO_URL)
   .then(() => {
     app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 
