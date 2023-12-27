@@ -31,7 +31,7 @@ export const register = async (req, res) => {
       impressions: Math.floor(Math.random() * 10000),
     });
     const savedUser = await newUser.save();
-    consoel.log("SAVING USER RESPONSE", savedUser);
+    console.log("SAVING USER RESPONSE", savedUser);
     res.status(201).json(savedUser);
   } catch (err) {
     console.log(`REGISTERATION ERROR: ${err}`);
