@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-// import dotenv from "dotenv";
 import "dotenv/config";
 import multer from "multer";
 import helmet from "helmet";
@@ -23,7 +22,6 @@ import { users, posts } from "./data/index.js";
 // Because we set type to "module", we have to define the below variables manually:
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet()); // Instructing Express.js to use the default Helmet middleware, which adds various HTTP headers to enhance security as preventing certain types of attacks like XSS (Cross-Site Scripting) and clickjacking.
@@ -64,7 +62,7 @@ mongoose
     app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 
     /* ADDING DATA TO DATABASE ONCE */
-    // User.insertMany(users)
-    // Post.insertMany(posts)
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
   .catch((err) => console.log(`ERROR while connecting to Database: ${err}`));
