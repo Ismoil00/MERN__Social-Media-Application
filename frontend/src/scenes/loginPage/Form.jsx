@@ -86,6 +86,11 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
+
+    if (!loggedIn["token"]) {
+      alert(loggedIn.msg);
+    }
+
     if (loggedIn) {
       dispatch(
         setLogin({
