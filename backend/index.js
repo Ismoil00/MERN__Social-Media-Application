@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postsRoutes from "./routes/posts.js";
 import fileRoutes from "./routes/imgFile.js";
+import commentRoutes from "./routes/comments.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
@@ -34,6 +35,7 @@ app.use("/auth", authRoutes);
 app.use("/", fileRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postsRoutes);
+app.use("/comments", commentRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
