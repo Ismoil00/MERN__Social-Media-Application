@@ -12,7 +12,10 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const { userId } = useParams();
   const token = useSelector((state) => state.token);
+  const { _id: main_user_id } = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
+  console.log(main_user_id === userId);
 
   const getUser = async () => {
     const response = await fetch(`http://localhost:4001/users/${userId}`, {
@@ -44,12 +47,20 @@ const ProfilePage = () => {
           <Box m="2rem 0" />
           <FriendListWidget userId={userId} />
         </Box>
+
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <MyPostWidget picturePath={user.picturePath} section={"profile"} />
-          <Box m="2rem 0" />
+          {main_user_id === userId && (
+            <>
+              <MyPostWidget
+                picturePath={user.picturePath}
+                section={"profile"}
+              />
+              <Box m="2rem 0" />
+            </>
+          )}
           <PostsWidget userId={userId} isProfile />
         </Box>
       </Box>
