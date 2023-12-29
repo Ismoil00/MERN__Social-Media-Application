@@ -12,7 +12,7 @@ export const verifyToken = (req, res, next) => {
       token = token.slice(7, token.length).trimLeft();
 
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("VERIFYING TOKEN", verified);
+    // console.log("VERIFYING TOKEN", verified);
     req.user = verified;
     next();
   } catch (err) {

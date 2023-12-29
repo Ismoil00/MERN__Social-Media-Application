@@ -4,7 +4,7 @@ import Post from "../models/Post.js";
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, description, picturePath, section } = req.body;
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
@@ -19,7 +19,12 @@ export const createPost = async (req, res) => {
     });
     await newPost.save();
 
-    const post = await Post.find();
+    let post;
+    if (section === "profile") {
+      post = await Post.find({ userId });
+    } else if (section === "feeds") {
+      post = await Post.find();
+    }
     res.status(201).json(post);
   } catch (err) {
     res.status(409).json({ message: err.message });
